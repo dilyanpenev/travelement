@@ -8,26 +8,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Font Awesome -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <div id="auth">
-        {% if user %}
-            <p> Hello, {{ user }} </p>
-            <form action="/logout">
-                <button class="btn btn-warning" type="submit">Logout</button>
-            </form>
-        {% else %}
-            <form action="/login">
-                <button class="btn btn-warning" type="submit">Login</button>
-            </form>
-            <form action="/register">
-                <button class="btn btn-info" type="submit">Register</button>
-            </form>
-        {% endif %}
-    </div>
     <div id="content">
         {% block content %} 
         {% endblock %}

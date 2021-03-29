@@ -11,6 +11,21 @@
     <title>travelElement</title>
 </head>
 <body>
+    <div id="auth">
+        {% if user %}
+            <p> Hello, {{ user }} </p>
+            <form action="/logout">
+                <button class="btn btn-warning" type="submit">Logout</button>
+            </form>
+        {% else %}
+            <form action="/login">
+                <button class="btn btn-warning" type="submit">Login</button>
+            </form>
+            <form action="/register">
+                <button class="btn btn-info" type="submit">Register</button>
+            </form>
+        {% endif %}
+    </div>
     <div id="mainbox">
         <h1 class="display-1">travelElement</h1>
         <p>See all of the posts: <a href="{% url 'allposts' %}">link</a></p>
