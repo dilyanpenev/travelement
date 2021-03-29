@@ -1,0 +1,14 @@
+{% extends 'posts/base.html' %}
+
+{% block title %} All Posts {% endblock %}
+
+{% block content %}
+    <p>All posts here</p>
+    <ul>
+        {% for post in posts_list %}
+            <li>{{ post.title }}</li>
+        {% empty %}
+            <li>No posts found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
