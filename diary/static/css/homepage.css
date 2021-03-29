@@ -1,0 +1,10 @@
+#mainbox {
+  margin-top: 1%;
+  margin-left: 5%;
+  text-align: center;
+}
+
+p {
+  font-size: larger;
+  text-transform: uppercase;
+}
