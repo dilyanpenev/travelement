@@ -1,13 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Post
 
 
-def index(request):
+def get_user_or_none(request):
     if request.user.is_authenticated:
-        u = request.user
+        return request.user
     else:
-        u = None
+        return None
+
+
+def index(request):
+    u = get_user_or_none(request)
     params = {
         'user': u,
     }
@@ -15,13 +19,20 @@ def index(request):
 
 
 def all_posts(request):
-    if request.user.is_authenticated:
-        u = request.user
-    else:
-        u = None
+    u = get_user_or_none(request)
     posts_list = Post.objects.all()
     context = {
         'posts_list': posts_list,
         'user': u
     }
     return render(request, 'posts/allposts.html', context)
+
+
+def details(request, idx):
+    u = get_user_or_none(request)
+    post = get_object_or_404(Post, pk=idx)
+    context = {
+        'post': post,
+        'user': u,
+    }
+    return render(request, 'posts/details.html', context)
