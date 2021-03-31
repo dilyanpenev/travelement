@@ -1,14 +1,15 @@
 {% extends 'general/base.html' %} {% block title %} All Posts {% endblock %}
 {%block content %}
-<div class="header">
-  <h3 class="display-4">All Posts</h3>
-</div>
-{% if posts_list %}
-<ul>
-  {% for post in posts_list %}
-  <li>{{ post.title }}</li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No posts found</p>
-{% endif %} {% endblock %}
+    <div class="header">
+    <h3 class="display-4">All Posts</h3>
+    </div>
+    {% if posts_list %}
+    <ul>
+    {% for post in posts_list %}
+    <li><a href="{% url 'details' post.id %}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No posts found</p>
+    {% endif %}
+{% endblock %}

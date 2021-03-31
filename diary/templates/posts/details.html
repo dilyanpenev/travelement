@@ -1,3 +1,14 @@
-{% extends 'general/base.html' %} {% block title %} Post Details {% endblock %}
+{% extends 'general/base.html' %} 
+{% block title %} Post Details {% endblock %}
+
 {%block content %}
+    <h3>{{ post.title }}</h3>
+    <p> created by {{ post.user }} on {{ post.pub_date }}</p>
+    <p>{{ post.description }}</p>
+    <form action="{% url 'allposts' %}">
+        <button class="btn btn-info" type="submit">Back</button>
+    </form>
+    <form action="{% url 'update' post.id %}">
+        <button class="btn btn-info" type="submit">Update</button>
+    </form>
 {% endblock %}

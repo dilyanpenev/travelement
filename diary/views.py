@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
 
@@ -53,3 +54,17 @@ def create_post(request):
         form = PostForm()
 
     return render(request, "posts/add.html", {"form": form})
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    fields = ['title', 'description']
+    template_name = "posts/update.html"
+
+    def get_object(self, queryset=None):
+        obj = Post.objects.get(id=self.kwargs['idx'])
+        return obj
+
+    def get_success_url(self):
+        post_id = self.kwargs['idx']
+        return reverse_lazy('details', kwargs={'idx': post_id})
