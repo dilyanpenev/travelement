@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import edit, DetailView, ListView
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from .models import Post
 from .forms import PostForm
 
@@ -45,6 +46,12 @@ class PostDetailView(DetailView):
 class PostCreateView(edit.CreateView):
     template_name = "posts/add.html"
     form_class = PostForm
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super(PostCreateView, self).get_form_kwargs(*args, **kwargs)
