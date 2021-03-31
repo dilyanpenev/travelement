@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic import edit
 from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
@@ -41,32 +41,23 @@ def details(request, pk):
     return render(request, 'posts/details.html', context)
 
 
-@login_required
-def create_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = Post.objects.create_post(
-                title=form.cleaned_data['title'], user=request.user, desc=form.cleaned_data['description'])
-            post.save()
-        return redirect("/posts")
-    else:
-        form = PostForm()
+class PostCreateView(edit.CreateView):
+    template_name = "posts/add.html"
+    form_class = PostForm
 
-    return render(request, "posts/add.html", {"form": form})
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(PostCreateView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(edit.UpdateView):
     model = Post
     fields = ['title', 'description']
     template_name = "posts/update.html"
 
-    def get_success_url(self):
-        post_id = self.kwargs['pk']
-        return reverse_lazy('details', kwargs={'pk': post_id})
 
-
-class PostDeleteView(DeleteView):
+class PostDeleteView(edit.DeleteView):
     model = Post
     template_name = "posts/delete.html"
     success_url = reverse_lazy('allposts')
