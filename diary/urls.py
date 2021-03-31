@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('posts/', views.all_posts, name='allposts'),
-    path('posts/<int:pk>/', views.details, name='details'),
+    path('posts/',
+         views.PostListView.as_view(), name='allposts'),
+    path('posts/<int:pk>/',
+         views.PostDetailView.as_view(), name='details'),
     path('posts/add/',
          login_required(views.PostCreateView.as_view()), name='create'),
     path('posts/<int:pk>/update/',
