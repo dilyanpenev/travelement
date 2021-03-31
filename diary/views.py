@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
@@ -31,9 +31,9 @@ def all_posts(request):
     return render(request, 'posts/allposts.html', context)
 
 
-def details(request, idx):
+def details(request, pk):
     u = get_user_or_none(request)
-    post = get_object_or_404(Post, pk=idx)
+    post = get_object_or_404(Post, pk=pk)
     context = {
         'post': post,
         'user': u,
@@ -61,10 +61,12 @@ class PostUpdateView(UpdateView):
     fields = ['title', 'description']
     template_name = "posts/update.html"
 
-    def get_object(self, queryset=None):
-        obj = Post.objects.get(id=self.kwargs['idx'])
-        return obj
-
     def get_success_url(self):
-        post_id = self.kwargs['idx']
-        return reverse_lazy('details', kwargs={'idx': post_id})
+        post_id = self.kwargs['pk']
+        return reverse_lazy('details', kwargs={'pk': post_id})
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "posts/delete.html"
+    success_url = reverse_lazy('allposts')
