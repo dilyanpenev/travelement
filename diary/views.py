@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import edit, DetailView, ListView
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from .models import Post
 from .forms import PostForm
 
@@ -64,8 +64,20 @@ class PostUpdateView(edit.UpdateView):
     fields = ['title', 'description']
     template_name = "posts/update.html"
 
+    def get_object(self):
+        obj = super(PostUpdateView, self).get_object()
+        if obj.user != self.request.user:
+            raise Http404('You are not the author of this post.')
+        return obj
+
 
 class PostDeleteView(edit.DeleteView):
     model = Post
     template_name = "posts/delete.html"
     success_url = reverse_lazy('allposts')
+
+    def get_object(self):
+        obj = super(PostDeleteView, self).get_object()
+        if obj.user != self.request.user:
+            raise Http404('You are not the author of this post.')
+        return obj
