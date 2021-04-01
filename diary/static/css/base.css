@@ -40,3 +40,18 @@
   padding-bottom: 2%;
   margin-left: 2%;
 }
+
+.menu {
+  padding-top: 1%;
+  padding-bottom: 2%;
+}
+
+.desc {
+  font-size: larger;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.settings {
+  font-style: italic;
+  font-size: small;
+}
