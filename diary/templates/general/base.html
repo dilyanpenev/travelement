@@ -13,24 +13,32 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <div id="auth">
-        {% if user %}
-            <p> Hello, {{ user }} </p>
-            <form action="/logout">
-                <button class="btn btn-warning" type="submit">Logout</button>
-            </form>
-        {% else %}
-            <form action="/login">
-                <button class="btn btn-warning" type="submit">Login</button>
-            </form>
-            <form action="/register">
-                <button class="btn btn-info" type="submit">Register</button>
-            </form>
-        {% endif %}
-    </div>
-    <div id="content">
-        {% block content %} 
-        {% endblock %}
+    <div id="page">
+        <div id="auth">
+            {% if user %}
+                <span class="inline"><p> Welcome, {{ user|title }} </p></span>
+                <span class="inline">
+                    <form action="/logout">
+                        <button class="btn btn-warning" type="submit">Logout</button>
+                    </form>
+                </span>
+            {% else %}
+                <span class="inline">
+                    <form action="/login">
+                        <button class="btn btn-warning" type="submit">Login</button>
+                    </form>
+                </span>
+                <span class="inline">
+                    <form action="/register">
+                        <button class="btn btn-info" type="submit">Register</button>
+                    </form>
+                </span>
+            {% endif %}
+        </div>
+        <div id="content">
+            {% block content %} 
+            {% endblock %}
+        </div>
     </div>
 </body>
 </html>
