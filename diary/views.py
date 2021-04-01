@@ -54,8 +54,13 @@ class PostCreateView(edit.CreateView):
 
 class PostUpdateView(edit.UpdateView):
     model = Post
-    fields = ['title', 'description']
+    form_class = PostForm
     template_name = "posts/update.html"
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(PostUpdateView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class PostDeleteView(edit.DeleteView):
