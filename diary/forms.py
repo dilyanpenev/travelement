@@ -1,5 +1,7 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import ModelForm, ValidationError, Textarea
 from .models import Post
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, Div, Fieldset
 
 
 class PostForm(ModelForm):
@@ -11,6 +13,10 @@ class PostForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget = Textarea(
+            attrs={'rows': 1, 'cols': 25})
+        self.fields['description'].widget = Textarea(
+            attrs={'rows': 4, 'cols': 35})
 
     def clean_title(self):
         title = self.cleaned_data['title']

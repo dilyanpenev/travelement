@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import edit, DetailView, ListView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, Http404
-from .models import Post
 from .forms import PostForm
+from .models import Post
 
 
 def get_user_or_none(request):
@@ -61,7 +61,7 @@ class PostCreateView(edit.CreateView):
 
 class PostUpdateView(edit.UpdateView):
     model = Post
-    fields = ['title', 'description']
+    form_class = PostForm
     template_name = "posts/update.html"
 
     def get_object(self):
@@ -69,6 +69,11 @@ class PostUpdateView(edit.UpdateView):
         if obj.user != self.request.user:
             raise Http404('You are not the author of this post.')
         return obj
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(PostUpdateView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class PostDeleteView(edit.DeleteView):

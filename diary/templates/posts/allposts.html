@@ -1,15 +1,35 @@
-{% extends 'general/base.html' %} {% block title %} All Posts {% endblock %}
+{% extends 'general/base.html' %} 
+{% block title %} All Posts {% endblock %}
+
 {%block content %}
     <div class="header">
     <h3 class="display-4">All Posts</h3>
     </div>
-    {% if posts_list %}
-    <ul>
-    {% for post in posts_list %}
-    <li><a href="{% url 'details' post.id %}">{{ post.title }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-    <p>No posts found</p>
-    {% endif %}
+    <div id="table">
+    <table class="table table-striped">
+        <thead>
+        <tr class="row">
+            <th class="col-md-4">Title</th>
+            <th class="col-md-2">Author</th>
+            <th class="col-md-2">Publish Date</th>
+            <th class="col-md-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts_list %}
+            <tr class="row">
+                <td class="col-md-4"><a href="{% url 'details' post.id %}">{{ post.title }}</a></td>
+                <td class="col-md-2">{{ post.user }}</td>
+                <td class="col-md-2">{{ post.pub_date }}</td>
+                <td class="col-md-4">{{ post.description}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div id="createbtn">
+        <form action="{% url 'create' %}">
+            <button class="btn btn-success" type="submit"><i class="fas fa-plus"></i> Create Post</button>
+        </form>
+    </div>
 {% endblock %}

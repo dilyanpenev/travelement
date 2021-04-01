@@ -3,9 +3,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<form method="POST" class="form-group">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button type="submit" class="btn btn-success">Submit</button>
-</form>
+    <div class="formb">
+        <h2 class="formb">Create Post</h2>
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Submit</button>
+        </form>
+        <span class="inline">
+            <form action="{% url 'allposts' %}">
+                <button class="btn btn-danger" type="submit"><i class="fas fa-times"></i> Cancel</button>
+            </form>
+        </span>
+    </div>
 {% endblock %}
