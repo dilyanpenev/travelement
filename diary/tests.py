@@ -3,6 +3,15 @@ from django.test.utils import setup_test_environment
 from django.contrib.auth.models import User
 from .models import Post
 from .forms import PostForm
+from django.utils import timezone
+from django.urls import reverse
+
+
+def create_post(title='Test Post', username='testUser', description='Test desc'):
+    return Post.objects.create(title=title,
+                               user=User.objects.create_user(
+                                   username='username'),
+                               description=description, pub_date=timezone.now())
 
 
 class PostFormTest(TestCase):
@@ -57,3 +66,29 @@ class PostFormTest(TestCase):
         form = PostForm(
             data={'title': 'A', 'description': long_string}, user=client)
         self.assertFalse(form.is_valid())
+
+
+class PostModelTest(TestCase):
+
+    def test_post_creation(self):
+        p = create_post()
+        self.assertTrue(isinstance(p, Post))
+        self.assertEqual(p.__str__(), p.title)
+
+
+class ViewTest(TestCase):
+
+    def test_index_view(self):
+        url = reverse("index")
+        resp = self.client.get(url)
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(str.encode('travelElement'), resp.content)
+
+    def test_list_view(self):
+        p = create_post()
+        url = reverse("allposts")
+        resp = self.client.get(url)
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(str.encode(p.title), resp.content)
