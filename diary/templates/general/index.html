@@ -11,20 +11,32 @@
     <title>travelElement</title>
 </head>
 <body>
-    <div id="auth">
-        {% if user %}
-            <p> Hello, {{ user }} </p>
-            <form action="/logout">
-                <button class="btn btn-warning" type="submit">Logout</button>
-            </form>
-        {% else %}
-            <form action="/login">
-                <button class="btn btn-warning" type="submit">Login</button>
-            </form>
-            <form action="/register">
-                <button class="btn btn-info" type="submit">Register</button>
-            </form>
-        {% endif %}
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light" id="auth">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="Travelelement logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            {% if user %}
+                <a class="nav-link auth-text" href="#">Welcome, {{ user|title }}</a>
+                <form action="/logout">
+                    <button class="btn btn-log" type="submit"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
+            {% else %}
+                <form action="/login">
+                    <button class="btn btn-log" type="submit">Login</button>
+                </form>
+                <form action="/register">
+                    <button class="btn btn-reg" type="submit">Register</button>
+                </form>
+            {% endif %}
+        </div>
+        </nav>
     </div>
     <div id="mainbox">
         <h1 class="display-1">travelElement</h1>

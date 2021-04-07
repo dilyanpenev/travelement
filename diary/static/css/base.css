@@ -1,18 +1,40 @@
 #page {
-  width: 96%;
-  margin-left: 2%;
-  margin-top: 1%;
-  background-color:floralwhite;
+  background-color: rgba(255, 250, 240, 0.6);;
 }
 
 #auth {
-  text-align: right;
-  padding-right: 1%;
-  padding-top: 1%;
+  background-color: #F5DFBB;
+  box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
 }
 
-#auth > * {
-  margin-left: 10px;
+.btn-reg {
+  border-radius: 9px;
+  background: rgba(242, 84, 45, 0.9);
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+}
+
+.btn-log {
+  border-radius: 9px;
+  border: 2px solid #F2542D;
+  color: #F2542D;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+}
+
+.auth-text {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.logo {
+  border-radius: 9px;
+  float: left;
+  height: 45px;
+  width: auto;
 }
 
 .inline {
