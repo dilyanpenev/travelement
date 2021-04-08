@@ -1,14 +1,22 @@
+body {
+  background-color: #FFFAF0;
+}
+
 #mainbox {
-  margin-top: 1%;
-  margin-left: 5%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+#titlebox {
   text-align: center;
+  display: grid;
+  /* place-items: center; */
 }
 
 #auth {
   text-align: right;
   padding-right: 1%;
   padding-top: 1%;
-  padding-bottom: 1%;
   background-color: #F5DFBB;
   box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
 }
@@ -51,4 +59,47 @@
   height: 45px;
   width: auto;
   padding-left: 1%;
+}
+
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+.title {
+  font-family: 'Yeseva One', cursive;
+  font-size: 7vw;
+  padding-top: 4%;
+  padding-bottom: 5%;
+  text-decoration: underline dotted;
+}
+
+.desc {
+  padding: 0em 10rem;
+  font-size: 2vw;
+  font-weight: lighter;
+}
+
+.img {
+  max-width: 100%;
+  height: auto;
+}
+
+.fadein {
+  -webkit-animation: fadein 2s;
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

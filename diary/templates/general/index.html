@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
     <title>travelElement</title>
 </head>
 <body>
@@ -39,8 +43,14 @@
         </nav>
     </div>
     <div id="mainbox">
-        <h1 class="display-1">travelElement</h1>
-        <p>See all of the posts: <a href="{% url 'allposts' %}">link</a></p>
+        <div>
+            <img class="img" src="{% static 'images/half.png' %}" alt="Elements">
+        </div>
+        <div id="titlebox">
+            <h1 class="title fadein">travelЭlement</h1>
+            <p class="desc fadein">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pulvinar egestas ante sit amet mollis. Cras ut finibus neque.</p>
+            <a class="desc fadein" href="{% url 'allposts' %}">Explore all travel posts <i class="fas fa-arrow-right"></i></a>
+        </div>        
     </div>
 </body>
 </html>
